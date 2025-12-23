@@ -1,25 +1,38 @@
 import readline from 'readline';
 import process from 'process';
+import {getCommands} from './commander.js';
+
 
 
 
 export function startREPL(){
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
   prompt: 'Pokedex > ',
 });
+
 rl.prompt();
 
 rl.on('line', async(input) => {
-  const commands = cleanInput(input);
-  if (commands.length == 0) {
+  const userInputCommand = cleanInput(input);
+  if (userInputCommand.length == 0) {
     rl.prompt();
     return;
   }
-  console.log(`Your command was: ${commands[0]}`)
+
+  const commands = getCommands();
+  const commandName = userInputCommand[0];
+  const command = commands[commandName];
+
+  if (command) {
+    command.callback(commands);
+  } else {
+    console.log(`Unknown command: ${commandName}`);
+  }
   rl.prompt();
-})
+})   
 }
 
 export function cleanInput(input: string): string[] {
