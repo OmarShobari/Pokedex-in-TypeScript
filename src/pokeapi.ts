@@ -2,7 +2,7 @@ import { Cache } from "./pokecache.js";
 
 export class PokeAPI {
   private static readonly baseURL = "https://pokeapi.co/api/v2";
-  private cache: Cache;
+  cache: Cache;
 
   constructor(cacheInterval: number) {
     this.cache = new Cache(cacheInterval);

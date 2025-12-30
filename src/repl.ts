@@ -14,11 +14,12 @@ export async function startREPL(state: State) {
 
     const commands = state.commands;
     const commandName = userInputCommand[0];
+    const commandArgs = userInputCommand.slice(1);
     const command = commands[commandName];
 
     if (command) {
       try {
-        await command.callback(state);
+        await command.callback(state, ...commandArgs);
       } catch (error) {
         console.error(`Error executing command '${commandName}':`, error);
       }
