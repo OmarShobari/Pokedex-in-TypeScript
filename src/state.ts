@@ -16,14 +16,14 @@ export type State = {
   previousLocationsURL: string | null;
 };
 
-export const initState = (): State => {
+export const initState = (cacheInterval: number): State => {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
     prompt: "Pokedex > ",
   });
 
-  const pokeAPI = new PokeAPI();
+  const pokeAPI = new PokeAPI(cacheInterval);
   let nextLocationsURL = null;
   let previousLocationsURL = null;
 
